@@ -1,0 +1,23 @@
+<h1>Configuration</h1>
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+  <mat-form-field class="apikey" appearance="fill">
+    <mat-label>API Key</mat-label>
+    <input
+      matInput
+      [type]="hideApiKey ? 'password' : 'text'"
+      formControlName="apiKey"
+    />
+    <button
+      mat-icon-button
+      matSuffix
+      (click)="hideApiKey = !hideApiKey"
+      [attr.aria-label]="'Hide password'"
+      [attr.aria-pressed]="hideApiKey"
+    >
+      <mat-icon>{{ hideApiKey ? "visibility_off" : "visibility" }}</mat-icon>
+    </button>
+  </mat-form-field>
+  <button mat-raised-button color="primary" type="submit" class="button">
+    Save
+  </button>
+</form>

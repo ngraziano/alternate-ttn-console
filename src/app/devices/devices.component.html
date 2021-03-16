@@ -1,1 +1,11 @@
-<app-devicelist></app-devicelist>
+<div class="device-component">
+  <app-devicelist
+    (selectedDeviceChange)="onSelectedDeviceChange($event)"
+  ></app-devicelist>
+  <mat-card
+    *ngIf="selectedDeviceNetworkInformation | async as devicedetail"
+    class="device-detail"
+  >
+    <app-device-detail [device]="devicedetail"></app-device-detail>
+  </mat-card>
+</div>

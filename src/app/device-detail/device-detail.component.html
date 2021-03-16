@@ -1,0 +1,10 @@
+<mat-tab-group mat-align-tabs="start" *ngIf="device">
+  <mat-tab label="Details">
+    <div>
+      <div>{{ device.id }}</div>
+    </div>
+  </mat-tab>
+  <mat-tab label="Raw">
+    <ngx-json-viewer [json]="device.raw"></ngx-json-viewer>
+  </mat-tab>
+</mat-tab-group>

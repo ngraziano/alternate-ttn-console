@@ -1,0 +1,11 @@
+.device-component {
+  display: flex;
+  padding-left: 2rem;
+  app-devicelist {
+    flex: 1;
+  }
+  .device-detail {
+    flex: 2;
+    max-width: 60%;
+  }
+}

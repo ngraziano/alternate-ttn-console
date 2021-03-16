@@ -1,15 +1,43 @@
 import { Component, OnInit } from '@angular/core';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
+import { Device } from '../device';
+import { DeviceNetworkInformation } from '../device-network-information';
+import { TtnAccessService } from '../ttn-access.service';
 
 @Component({
   selector: 'app-devices',
   templateUrl: './devices.component.html',
-  styleUrls: ['./devices.component.scss']
+  styleUrls: ['./devices.component.scss'],
 })
 export class DevicesComponent implements OnInit {
+  public readonly selectedDevice = new BehaviorSubject<Device | undefined>(
+    undefined
+  );
 
-  constructor() { }
+  public readonly selectedDeviceNetworkInformation: Observable<
+    DeviceNetworkInformation | undefined
+  >;
 
-  ngOnInit(): void {
+  constructor(private ttnAccess: TtnAccessService) {
+    this.selectedDeviceNetworkInformation = this.selectedDevice.pipe(
+      mergeMap((d) => this.readNetworkInformation(d))
+    );
   }
 
+  ngOnInit(): void {}
+
+  public onSelectedDeviceChange(newDevice: Device): void {
+    this.selectedDevice.next(newDevice);
+  }
+
+  private readNetworkInformation(
+    device: Device | undefined
+  ): Observable<DeviceNetworkInformation | undefined> {
+    if (!device) {
+      return of(undefined);
+    }
+
+    return this.ttnAccess.nsEndDeviceRegistryGet('gzo-test-one', device.id);
+  }
 }
