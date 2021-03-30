@@ -1,7 +1,20 @@
 <mat-tab-group mat-align-tabs="start" *ngIf="device">
   <mat-tab label="Details">
-    <div>
-      <div>{{ device.id }}</div>
+    <div class="detail">
+      <div>
+        <span>Id:</span><span>{{ device.id }}</span>
+      </div>
+      <div>
+        <span>Data rate:</span><span>{{ device.dataRate.actual }} </span>
+      </div>
+
+      <div>
+        <span>Tx power index:</span
+        ><span>{{ device.txPowerIndex.actual }}</span>
+      </div>
+      <div>
+        <span>Tx power:</span><span>{{ device.txPower.actual }} dBm</span>
+      </div>
     </div>
   </mat-tab>
   <mat-tab label="Raw">

@@ -19,7 +19,7 @@ export class DevicelistComponent implements OnInit {
 
   constructor(ttnAccess: TtnAccessService) {
     this.dataSource = new DeviceDataSource(ttnAccess);
-    this.dataSource.readPage(1, this.dataSource.pageSize);
+    this.dataSource.readPage(0, this.dataSource.pageSize);
   }
 
   public ngOnInit(): void {}

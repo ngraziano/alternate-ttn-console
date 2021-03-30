@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { DeviceNetworkInformation } from './device-network-information';
 import { AppConfigService } from './app-config.service';
 import { IAppConfiguration } from './database/app-configuration';
+import { EndDevice } from './ttnmodels/end-device';
 
 const totalCountHeader = 'x-total-count';
 
@@ -115,11 +116,11 @@ nwk_s_enc_key
 
         const params = new HttpParams().set(
           'field_mask',
-          'mac_state,power_state'
+          'frequency_plan_id,mac_state,power_state,last_dev_status_received_at,battery_percentage,downlink_margin'
         );
 
         return this.client
-          .get<any>(url, {
+          .get<EndDevice>(url, {
             headers,
             params,
             observe: 'response',
@@ -127,9 +128,37 @@ nwk_s_enc_key
           })
           .pipe(
             map((res) => {
+              const obj = res.body;
+              if (!obj) {
+                throw new Error('Not found');
+              }
               return {
-                id: res.body.ids.device_id as string,
-                raw: res.body,
+                id: obj.ids.device_id as string,
+                txPowerIndex: {
+                  desired:
+                    obj.mac_state.desired_parameters.adr_tx_power_index ?? 0,
+                  actual:
+                    obj.mac_state.current_parameters.adr_tx_power_index ?? 0,
+                },
+                txPower: {
+                  desired:
+                    (obj.mac_state.desired_parameters.max_eirp ?? 0) -
+                    2 *
+                      (obj.mac_state.desired_parameters.adr_tx_power_index ??
+                        0),
+                  actual:
+                    (obj.mac_state.current_parameters.max_eirp ?? 0) -
+                    2 *
+                      (obj.mac_state.current_parameters.adr_tx_power_index ??
+                        0),
+                },
+                dataRate: {
+                  desired:
+                    obj.mac_state.desired_parameters.adr_data_rate_index ?? 0,
+                  actual:
+                    obj.mac_state.current_parameters.adr_data_rate_index ?? 0,
+                },
+                raw: obj,
               } as DeviceNetworkInformation;
             })
           );
