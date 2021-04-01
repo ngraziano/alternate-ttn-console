@@ -38,6 +38,6 @@ export class DevicesComponent implements OnInit {
       return of(undefined);
     }
 
-    return this.ttnAccess.nsEndDeviceRegistryGet('gzo-test-one', device.id);
+    return this.ttnAccess.nsEndDeviceRegistryGet(device.appId, device.id);
   }
 }

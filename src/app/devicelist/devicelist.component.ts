@@ -1,4 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { AppConfigService } from '../app-config.service';
 import { Device } from '../device';
 import { DeviceDataSource } from '../device-data-source';
 import { TtnAccessService } from '../ttn-access.service';
@@ -13,13 +16,28 @@ export class DevicelistComponent implements OnInit {
   public selectedDeviceChange = new EventEmitter<Device>();
 
   public displayedColumns: string[] = ['id', 'name'];
-  public dataSource: DeviceDataSource;
+  public dataSource$: Observable<DeviceDataSource | undefined>;
 
   public selectedDevice?: Device;
 
-  constructor(ttnAccess: TtnAccessService) {
-    this.dataSource = new DeviceDataSource(ttnAccess);
-    this.dataSource.readPage(0, this.dataSource.pageSize);
+  constructor(
+    ttnAccess: TtnAccessService,
+    configurationService: AppConfigService
+  ) {
+    this.dataSource$ = configurationService.get().pipe(
+      map((config) => {
+        if (!config.applicationId) {
+          return undefined;
+        }
+
+        const dataSource = new DeviceDataSource(
+          ttnAccess,
+          config.applicationId
+        );
+        dataSource.readPage(0, dataSource.pageSize);
+        return dataSource;
+      })
+    );
   }
 
   public ngOnInit(): void {}

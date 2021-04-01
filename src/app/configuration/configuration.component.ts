@@ -1,4 +1,3 @@
-import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AppConfigService } from '../app-config.service';
@@ -18,15 +17,25 @@ export class ConfigurationComponent implements OnInit {
   ) {
     this.formGroup = this.formBuilder.group({
       apiKey: [''],
+      applicationId: [''],
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.configService.get().subscribe({
+      next: (v) =>
+        this.formGroup.setValue({
+          apiKey: v.ttnUserToken ?? null,
+          applicationId: v.applicationId ?? null,
+        }),
+    });
+  }
 
   public onSubmit(): void {
     this.configService.save({
       id: 0,
       ttnUserToken: this.formGroup.value.apiKey,
+      applicationId: this.formGroup.value.applicationId,
     });
   }
 }

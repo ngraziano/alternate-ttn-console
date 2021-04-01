@@ -9,7 +9,7 @@ export class DeviceDataSource extends DataSource<Device> {
   public totalNumberOfDevice = new BehaviorSubject<number>(0);
   private deviceSubject = new BehaviorSubject<Device[]>([]);
 
-  constructor(private ttnAccess: TtnAccessService) {
+  constructor(private ttnAccess: TtnAccessService, private appId: string) {
     super();
   }
 
@@ -23,10 +23,12 @@ export class DeviceDataSource extends DataSource<Device> {
   public readPage(page: number, pageSize: number): void {
     this.pageSize = pageSize;
     this.ttnAccess
-      .endDeviceRegistryList('gzo-test-one', page, this.pageSize)
-      .subscribe((devicelist) => {
-        this.deviceSubject.next(devicelist.devices);
-        this.totalNumberOfDevice.next(devicelist.total);
+      .endDeviceRegistryList(this.appId, page, this.pageSize)
+      .subscribe({
+        next: (devicelist) => {
+          this.deviceSubject.next(devicelist.devices);
+          this.totalNumberOfDevice.next(devicelist.total);
+        },
       });
   }
 }

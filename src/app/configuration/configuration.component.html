@@ -7,6 +7,7 @@
       [type]="hideApiKey ? 'password' : 'text'"
       formControlName="apiKey"
     />
+
     <button
       mat-icon-button
       matSuffix
@@ -17,6 +18,12 @@
       <mat-icon>{{ hideApiKey ? "visibility_off" : "visibility" }}</mat-icon>
     </button>
   </mat-form-field>
+
+  <mat-form-field class="appId" appearance="fill">
+    <mat-label>Application ID</mat-label>
+    <input matInput type="text" formControlName="applicationId" />
+  </mat-form-field>
+
   <button mat-raised-button color="primary" type="submit" class="button">
     Save
   </button>

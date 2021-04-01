@@ -1,7 +1,12 @@
 import { MACParameters } from './mac-parameters';
 
 export interface EndDevice {
-  ids: any;
+  ids: {
+    device_id: string;
+    application_ids: {
+      application_id: string;
+    };
+  };
   name: string;
   description: string;
   mac_state: {

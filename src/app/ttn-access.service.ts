@@ -92,6 +92,7 @@ nwk_s_enc_key
               return {
                 total: totalCount,
                 devices: res.body?.end_devices.map((d) => ({
+                  appId: d.ids.application_ids.application_id,
                   id: d.ids.device_id,
                   name: d.name,
                 })),
