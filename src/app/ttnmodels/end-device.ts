@@ -1,5 +1,7 @@
 import { MACParameters } from './mac-parameters';
 
+// naming depend of TTN API
+/* eslint-disable @typescript-eslint/naming-convention */
 export interface EndDevice {
   ids: {
     device_id: string;

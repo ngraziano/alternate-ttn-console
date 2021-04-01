@@ -15,12 +15,13 @@ const totalCountHeader = 'x-total-count';
   providedIn: 'root',
 })
 export class TtnAccessService {
+  private readonly appserver = 'https://eu1.cloud.thethings.network';
+
   constructor(
     private client: HttpClient,
     private configService: AppConfigService
   ) {}
 
-  private readonly appserver = 'https://eu1.cloud.thethings.network';
   // /api/v3/applications/{end_device.ids.application_ids.application_id}/devices/{end_device.ids.device_id}
   /*
 ids (with subfields)

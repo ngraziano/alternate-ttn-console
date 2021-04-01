@@ -1,3 +1,13 @@
 {
-    "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "eslint.options": {
+    "extensions": [".ts", ".html"]
+  },
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "html"
+  ]
 }
