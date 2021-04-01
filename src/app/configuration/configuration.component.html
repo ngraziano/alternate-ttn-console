@@ -23,8 +23,8 @@
     <mat-label>Application ID</mat-label>
     <input matInput type="text" formControlName="applicationId" />
   </mat-form-field>
-
-  <button mat-raised-button color="primary" type="submit" class="button">
-    Save
-  </button>
+  <div class="button-row">
+    <button mat-raised-button color="primary" type="submit">Save</button>
+    <button mat-raised-button color="warn" (click)="onClear()">Clear</button>
+  </div>
 </form>

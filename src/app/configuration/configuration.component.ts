@@ -38,4 +38,16 @@ export class ConfigurationComponent implements OnInit {
       applicationId: this.formGroup.value.applicationId,
     });
   }
+
+  public onClear(): void {
+    this.configService.save({
+      id: 0,
+      ttnUserToken: undefined,
+      applicationId: undefined,
+    });
+    this.formGroup.setValue({
+      apiKey: null,
+      applicationId: null,
+    });
+  }
 }
