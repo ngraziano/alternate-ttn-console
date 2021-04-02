@@ -17,6 +17,11 @@
     >
       <mat-icon>{{ hideApiKey ? "visibility_off" : "visibility" }}</mat-icon>
     </button>
+    <mat-hint
+      >A Personal API key with the following role : " View devices in
+      application", "View device keys in application", "View application
+      information", "Read application traffic (uplink and downlink)"</mat-hint
+    >
   </mat-form-field>
 
   <mat-form-field class="appId" appearance="fill">
@@ -26,5 +31,9 @@
   <div class="button-row">
     <button mat-raised-button color="primary" type="submit">Save</button>
     <button mat-raised-button color="warn" (click)="onClear()">Clear</button>
+  </div>
+  <div>
+    This configuration is stored in the browser IndexDB. After use do not forget
+    to clear it on shared browser.
   </div>
 </form>
