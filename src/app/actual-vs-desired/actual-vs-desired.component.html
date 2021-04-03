@@ -1,0 +1,9 @@
+<div class="detail">
+  <span>{{ label }}</span>
+  <span
+    *ngIf="value"
+    [matTooltip]="wantedLabel"
+    [ngClass]="{ diff: isWantedDiff }"
+    >{{ value.actual }} {{ unit }}
+  </span>
+</div>

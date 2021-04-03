@@ -9,6 +9,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,6 +23,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
+import { ActualVsDesiredComponent } from './actual-vs-desired/actual-vs-desired.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,7 @@ import { NgxJsonViewerModule } from 'ngx-json-viewer';
     DevicesComponent,
     DeviceDetailComponent,
     ConfigurationComponent,
+    ActualVsDesiredComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,6 +48,7 @@ import { NgxJsonViewerModule } from 'ngx-json-viewer';
     MatPaginatorModule,
     MatTabsModule,
     MatCardModule,
+    MatTooltipModule,
     MatGridListModule,
     HttpClientModule,
     ReactiveFormsModule,

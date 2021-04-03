@@ -6,5 +6,7 @@ export interface DeviceNetworkInformation {
   txPowerIndex: DesiredActual<number>;
   txPower: DesiredActual<number>;
 
+  powerSource: string;
+  batteryPercentage: number;
   raw: any;
 }

@@ -2,10 +2,10 @@
   <app-devicelist
     (selectedDeviceChange)="onSelectedDeviceChange($event)"
   ></app-devicelist>
-  <mat-card
+  <div
     *ngIf="selectedDeviceNetworkInformation | async as devicedetail"
     class="device-detail"
   >
     <app-device-detail [device]="devicedetail"></app-device-detail>
-  </mat-card>
+  </div>
 </div>
