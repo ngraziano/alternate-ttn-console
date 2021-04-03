@@ -160,6 +160,7 @@ nwk_s_enc_key
                   actual:
                     obj.mac_state.current_parameters.adr_data_rate_index ?? 0,
                 },
+                statusUpdateTime: new Date(obj.last_dev_status_received_at),
                 powerSource: obj.power_state ?? 'POWER_UNKNOWN',
                 batteryPercentage: obj.battery_percentage * 100,
                 raw: obj,

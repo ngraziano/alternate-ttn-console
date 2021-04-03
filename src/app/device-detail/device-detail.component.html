@@ -29,10 +29,16 @@
           <span>Power Source</span>
           <span>{{ device.powerSource }}</span>
         </div>
-        <div>
-          <span *ngIf="device.powerSource == 'POWER_BATTERY'">Batterie %</span>
-          <span>{{ device.batteryPercentage | number: "1.0-1" }}</span>
-        </div>
+        <ng-container *ngIf="device.powerSource == 'POWER_BATTERY'">
+          <div>
+            <span>Update</span>
+            <span>{{ device.statusUpdateTime | date: "long" }}</span>
+          </div>
+          <div>
+            <span>Batterie %</span>
+            <span>{{ device.batteryPercentage | number: "1.0-1" }}</span>
+          </div>
+        </ng-container>
       </mat-card-content>
     </mat-card>
   </mat-tab>
