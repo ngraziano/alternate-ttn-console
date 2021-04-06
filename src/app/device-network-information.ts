@@ -8,5 +8,8 @@ export interface DeviceNetworkInformation {
   statusUpdateTime: Date;
   powerSource: string;
   batteryPercentage: number;
+  downlinkMargin: number;
+  uplinkDate: Date;
+  uplinkMarging: number;
   raw: any;
 }

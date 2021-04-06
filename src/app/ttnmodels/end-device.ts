@@ -1,4 +1,5 @@
 import { MACParameters } from './mac-parameters';
+import { UplinkMessage } from './uplink-message';
 
 // naming depend of TTN API
 /* eslint-disable @typescript-eslint/naming-convention */
@@ -14,7 +15,7 @@ export interface EndDevice {
   mac_state: {
     current_parameters: MACParameters;
     desired_parameters: MACParameters;
-    recent_uplinks: any[];
+    recent_uplinks: UplinkMessage[];
     recent_downlinks: any;
     last_confirmed_downlink_at: string;
     last_dev_status_f_cnt_up: number;

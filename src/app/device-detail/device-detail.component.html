@@ -41,6 +41,27 @@
         </ng-container>
       </mat-card-content>
     </mat-card>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Margings</mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="detail">
+        <ng-container *ngIf="device.uplinkDate">
+          <div matTooltip="Update at {{ device.uplinkDate | date: 'long' }}">
+            <span>Uplink</span>
+            <span>{{ device.uplinkMarging }}</span>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="device.statusUpdateTime">
+          <div
+            matTooltip="Update at {{ device.statusUpdateTime | date: 'long' }}"
+          >
+            <span>Downlink</span>
+            <span>{{ device.downlinkMargin }}</span>
+          </div>
+        </ng-container>
+      </mat-card-content>
+    </mat-card>
   </mat-tab>
   <mat-tab label="Raw">
     <ngx-json-viewer [json]="device.raw"></ngx-json-viewer>
