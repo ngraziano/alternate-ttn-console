@@ -37,32 +37,6 @@ locations
 picture
 */
 
-  // /api/v3/ns/applications/{end_device_ids.application_ids.application_id}/devices/{end_device_ids.device_id}
-  /*
-ids (with subfields)
-frequency_plan_id
-lorawan_phy_version
-lorawan_version
-mac_settings (with subfields)
-mac_state (with subfields)
-supports_join
-multicast
-supports_class_b
-supports_class_c
-session.dev_addr
-session.keys:
-session_key_id
-f_nwk_s_int_key
-s_nwk_s_int_key
-nwk_s_enc_key
-
-  */
-
-  //
-  //
-  /**
-   *
-   */
   public endDeviceRegistryList(
     applicationId: string,
     page: number,
@@ -103,11 +77,31 @@ nwk_s_enc_key
       })
     );
   }
+  // /api/v3/ns/applications/{end_device_ids.application_ids.application_id}/devices/{end_device_ids.device_id}
+  /*
+ids (with subfields)
+frequency_plan_id
+lorawan_phy_version
+lorawan_version
+mac_settings (with subfields)
+mac_state (with subfields)
+supports_join
+multicast
+supports_class_b
+supports_class_c
+session.dev_addr
+session.keys:
+session_key_id
+f_nwk_s_int_key
+s_nwk_s_int_key
+nwk_s_enc_key
+
+  */
 
   public nsEndDeviceRegistryGet(
     applicationId: string,
     endDeviceId: string
-  ): Observable<DeviceNetworkInformation> {
+  ): Observable<EndDevice> {
     return this.configService.get().pipe(
       mergeMap((config) => {
         const url =
@@ -121,68 +115,12 @@ nwk_s_enc_key
           'frequency_plan_id,mac_state,power_state,last_dev_status_received_at,battery_percentage,downlink_margin'
         );
 
-        return this.client
-          .get<EndDevice>(url, {
-            headers,
-            params,
-            observe: 'response',
-            responseType: 'json',
-          })
-          .pipe(
-            map((res) => {
-              const obj = res.body;
-              if (!obj) {
-                throw new Error('Not found');
-              }
-
-              const lastUplink = obj.mac_state.recent_uplinks
-                ? obj.mac_state.recent_uplinks[
-                    obj.mac_state.recent_uplinks.length - 1
-                  ]
-                : null;
-              const uplinkMargings =
-                lastUplink?.rx_metadata.map((x) => x.rssi) ?? [];
-
-              return {
-                id: obj.ids.device_id as string,
-                txPowerIndex: {
-                  desired:
-                    obj.mac_state.desired_parameters.adr_tx_power_index ?? 0,
-                  actual:
-                    obj.mac_state.current_parameters.adr_tx_power_index ?? 0,
-                },
-                txPower: {
-                  desired:
-                    (obj.mac_state.desired_parameters.max_eirp ?? 0) -
-                    2 *
-                      (obj.mac_state.desired_parameters.adr_tx_power_index ??
-                        0),
-                  actual:
-                    (obj.mac_state.current_parameters.max_eirp ?? 0) -
-                    2 *
-                      (obj.mac_state.current_parameters.adr_tx_power_index ??
-                        0),
-                },
-                dataRate: {
-                  desired:
-                    obj.mac_state.desired_parameters.adr_data_rate_index ?? 0,
-                  actual:
-                    obj.mac_state.current_parameters.adr_data_rate_index ?? 0,
-                },
-                statusUpdateTime: obj.last_dev_status_received_at
-                  ? new Date(obj.last_dev_status_received_at)
-                  : undefined,
-                powerSource: obj.power_state ?? 'POWER_UNKNOWN',
-                batteryPercentage: obj.battery_percentage * 100,
-                downlinkMargin: obj.downlink_margin,
-                uplinkDate: lastUplink
-                  ? new Date(lastUplink.received_at)
-                  : undefined,
-                uplinkMarging: Math.max(...uplinkMargings),
-                raw: obj,
-              } as DeviceNetworkInformation;
-            })
-          );
+        return this.client.get<EndDevice>(url, {
+          headers,
+          params,
+          observe: 'body',
+          responseType: 'json',
+        });
       })
     );
   }

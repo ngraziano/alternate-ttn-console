@@ -10,6 +10,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -50,6 +51,7 @@ import { ActualVsDesiredComponent } from './actual-vs-desired/actual-vs-desired.
     MatCardModule,
     MatTooltipModule,
     MatGridListModule,
+    MatProgressSpinnerModule,
     HttpClientModule,
     ReactiveFormsModule,
     NgxJsonViewerModule,
