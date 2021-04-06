@@ -6,11 +6,15 @@
     *ngIf="selectedDeviceNetworkInformation | async as devicedetail"
     class="device-detail"
   >
-    <ng-template [ngIf]="devicedetail.loading">
-      <mat-spinner></mat-spinner
-    ></ng-template>
     <ng-template [ngIf]="!devicedetail.loading">
       <app-device-detail [device]="devicedetail.value"></app-device-detail
     ></ng-template>
+
+    <ng-template [ngIf]="devicedetail.loading">
+      <mat-spinner></mat-spinner
+    ></ng-template>
+    <ng-template [ngIf]="devicedetail.error">
+      Error loading device information
+    </ng-template>
   </div>
 </div>

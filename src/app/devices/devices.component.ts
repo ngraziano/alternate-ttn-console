@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { map, mergeMap, startWith } from 'rxjs/operators';
+import { catchError, map, mergeMap, startWith } from 'rxjs/operators';
 import { convertToNetworkInformation } from '../convert-network-device';
 import { Device } from '../device';
 import { DeviceNetworkInformation } from '../device-network-information';
@@ -17,7 +17,8 @@ export class DevicesComponent implements OnInit {
   );
 
   public readonly selectedDeviceNetworkInformation: Observable<
-    { loading: boolean; value?: DeviceNetworkInformation } | undefined
+    | { loading: boolean; value?: DeviceNetworkInformation; error?: any }
+    | undefined
   >;
 
   constructor(private ttnAccess: TtnAccessService) {
@@ -46,7 +47,8 @@ export class DevicesComponent implements OnInit {
         loading: false,
         value: convertToNetworkInformation(obj),
       })),
-      startWith({ loading: true })
+      startWith({ loading: true }),
+      catchError((error) => of({ loading: false, error }))
     );
   }
 }
