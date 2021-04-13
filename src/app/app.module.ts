@@ -25,6 +25,7 @@ import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
 import { ActualVsDesiredComponent } from './actual-vs-desired/actual-vs-desired.component';
+import { PowerSourcePipe } from './device-detail/power-source.pipe';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { ActualVsDesiredComponent } from './actual-vs-desired/actual-vs-desired.
     DeviceDetailComponent,
     ConfigurationComponent,
     ActualVsDesiredComponent,
+    PowerSourcePipe,
   ],
   imports: [
     BrowserModule,

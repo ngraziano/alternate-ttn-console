@@ -24,8 +24,7 @@ export interface EndDevice {
     last_adr_change_f_cnt_up: number;
   };
   last_dev_status_received_at: string;
-  // null, "POWER_BATTERY"
-  power_state: string;
+  power_state: number;
   // between 0 and 1
   battery_percentage: number;
   downlink_margin: number;

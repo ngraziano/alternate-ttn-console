@@ -6,7 +6,7 @@ export interface DeviceNetworkInformation {
   txPowerIndex: DesiredActual<number>;
   txPower: DesiredActual<number>;
   statusUpdateTime: Date;
-  powerSource: string;
+  powerSource: number;
   batteryPercentage: number;
   downlinkMargin: number;
   uplinkDate: Date;

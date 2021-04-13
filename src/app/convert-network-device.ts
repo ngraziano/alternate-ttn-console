@@ -29,7 +29,7 @@ export const convertToNetworkInformation = (obj: EndDevice) => {
       statusUpdateTime: obj.last_dev_status_received_at
         ? new Date(obj.last_dev_status_received_at)
         : undefined,
-      powerSource: obj.power_state ?? 'POWER_UNKNOWN',
+      powerSource: obj.power_state ?? 0,
       batteryPercentage: obj.battery_percentage * 100,
       downlinkMargin: obj.downlink_margin,
       uplinkDate: lastUplink ? new Date(lastUplink.received_at) : undefined,

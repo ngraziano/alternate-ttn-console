@@ -27,14 +27,14 @@
       <mat-card-content class="detail">
         <div>
           <span>Power Source</span>
-          <span>{{ device.powerSource }}</span>
+          <span>{{ device.powerSource | powerSource }}</span>
         </div>
         <div
-          *ngIf="device.powerSource == 'POWER_BATTERY'"
+          *ngIf="device.powerSource == 1"
           matTooltip="Update at {{ device.statusUpdateTime | date: 'long' }}"
         >
-          <span>Batterie %</span>
-          <span>{{ device.batteryPercentage | number: "1.0-1" }}</span>
+          <span>Batterie</span>
+          <span>{{ device.batteryPercentage | number: "1.0-1" }} %</span>
         </div>
       </mat-card-content>
     </mat-card>
