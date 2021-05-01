@@ -34,6 +34,18 @@ export const convertToNetworkInformation = (obj: EndDevice) => {
       downlinkMargin: obj.downlink_margin,
       uplinkDate: lastUplink ? new Date(lastUplink.received_at) : undefined,
       uplinkMarging: Math.max(...uplinkMargings),
+      lastPacket: lastUplink
+        ? {
+            date: new Date(lastUplink.received_at),
+            airtime: lastUplink.consumed_airtime,
+            channel: lastUplink.device_channel_index,
+            frequency: lastUplink.settings.frequency,
+            sp: lastUplink.settings.data_rate?.lora?.spreading_factor,
+            type: lastUplink.payload?.m_hdr?.m_type,
+            frameCounter: lastUplink?.payload?.mac_payload?.full_f_cnt,
+            port: lastUplink?.payload?.mac_payload?.f_port,
+          }
+        : undefined,
       raw: obj,
     } as DeviceNetworkInformation;
   }
