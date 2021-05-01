@@ -22,10 +22,12 @@ import { DeviceDetailComponent } from './device-detail/device-detail.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatDividerModule } from '@angular/material/divider';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
 import { ActualVsDesiredComponent } from './actual-vs-desired/actual-vs-desired.component';
 import { PowerSourcePipe } from './device-detail/power-source.pipe';
+import { LiveComponent } from './live/live.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,7 @@ import { PowerSourcePipe } from './device-detail/power-source.pipe';
     ConfigurationComponent,
     ActualVsDesiredComponent,
     PowerSourcePipe,
+    LiveComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,6 +56,7 @@ import { PowerSourcePipe } from './device-detail/power-source.pipe';
     MatCardModule,
     MatTooltipModule,
     MatGridListModule,
+    MatDividerModule,
     MatProgressSpinnerModule,
     HttpClientModule,
     ReactiveFormsModule,
