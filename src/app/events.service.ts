@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { mergeMap } from 'rxjs/operators';
+import { from, Observable, of, throwError } from 'rxjs';
+import { map, mergeMap } from 'rxjs/operators';
 import { AppConfigService } from './app-config.service';
-import { TtnSSE } from './ttnmodels/ttn-sse';
 // naming depend of TTN API
 /* eslint-disable @typescript-eslint/naming-convention */
 
@@ -13,40 +12,68 @@ export class EventsService {
   constructor(private configService: AppConfigService) {}
 
   public getEvents(): Observable<any> {
+    const abortController = new AbortController();
+
     return this.configService.get().pipe(
-      mergeMap(
-        (config) =>
-          new Observable((s) => {
-            const sse = new TtnSSE(
-              'https://eu1.cloud.thethings.network/api/v3/events',
-              {
-                headers: {
-                  'Content-Type': 'application/json',
-                  Authorization: 'Bearer ' + config.ttnUserToken,
-                  accept: 'text/event-stream',
+      mergeMap((config) =>
+        from(
+          fetch('https://eu1.cloud.thethings.network/api/v3/events', {
+            body: JSON.stringify({
+              identifiers: [
+                {
+                  application_ids: { application_id: config.applicationId },
                 },
-                payload: JSON.stringify({
-                  identifiers: [
-                    {
-                      application_ids: { application_id: config.applicationId },
-                    },
-                  ],
-                }),
-                method: 'POST',
-              }
-            );
-            sse.stream();
-            sse.data.subscribe(
-              (jsontext) => {
-                if (jsontext) {
-                  s.next(JSON.parse(jsontext));
-                }
-              },
-              (er) => s.error(er),
-              () => s.complete()
-            );
+              ],
+            }),
+            method: 'POST',
+            signal: abortController.signal,
+            headers: {
+              Authorization: 'Bearer ' + config.ttnUserToken,
+              Accept: 'text/event-stream',
+            },
           })
-      )
+        )
+      ),
+      mergeMap((response) => {
+        if (!response.ok) {
+          return throwError(new Error('Fail to read events'));
+        }
+        return new Observable<string>((sub) => {
+          const reader = response.body?.getReader();
+          if (!reader) {
+            sub.error(new Error('Fail to read events'));
+            return;
+          }
+          const utf8decoder = new TextDecoder();
+          let buffer = '';
+          const onChunk = (res: { done: boolean; value?: Uint8Array }) => {
+            if (res.done) {
+              if (buffer) {
+                sub.next(buffer);
+              }
+              sub.complete();
+              return;
+            }
+            const parsed = utf8decoder.decode(res.value);
+            buffer += parsed;
+            const lines = buffer.split(/\n\n/);
+            buffer = lines.pop() as string;
+            for (const line of lines) {
+              sub.next(line);
+            }
+
+            reader.read().then(onChunk);
+          };
+          reader
+            .read()
+            .then(onChunk)
+            .catch((e) => sub.error(e));
+          return {
+            unsubscribe: () => abortController.abort(),
+          };
+        });
+      }),
+      map((message) => JSON.parse(message).result)
     );
   }
 }
