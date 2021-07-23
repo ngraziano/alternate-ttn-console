@@ -17,7 +17,7 @@ export class EventsService {
     return this.configService.get().pipe(
       mergeMap((config) =>
         from(
-          fetch('https://eu1.cloud.thethings.network/api/v3/events', {
+          fetch(config.serverUrl + '/api/v3/events', {
             body: JSON.stringify({
               identifiers: [
                 {

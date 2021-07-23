@@ -4,7 +4,6 @@ import { Injectable } from '@angular/core';
 import { EndDevices } from './ttnmodels/end-devices';
 import { DeviceList } from './deviceList';
 import { Observable } from 'rxjs';
-import { DeviceNetworkInformation } from './device-network-information';
 import { AppConfigService } from './app-config.service';
 import { IAppConfiguration } from './database/app-configuration';
 import { EndDevice } from './ttnmodels/end-device';
@@ -15,8 +14,6 @@ const totalCountHeader = 'x-total-count';
   providedIn: 'root',
 })
 export class TtnAccessService {
-  private readonly appserver = 'https://eu1.cloud.thethings.network';
-
   constructor(
     private client: HttpClient,
     private configService: AppConfigService
@@ -42,9 +39,6 @@ picture
     page: number,
     limit: number
   ): Observable<DeviceList> {
-    const url =
-      this.appserver + `/api/v3/applications/${applicationId}/devices`;
-
     const params = new HttpParams()
       .set('page', (page + 1).toString())
       .set('limit', limit.toString())
@@ -52,6 +46,8 @@ picture
 
     return this.configService.get().pipe(
       mergeMap((config) => {
+        const url =
+          config.serverUrl + `/api/v3/applications/${applicationId}/devices`;
         const headers = this.defaultHeaders(config);
         return this.client
           .get<EndDevices>(url, {
@@ -105,7 +101,7 @@ nwk_s_enc_key
     return this.configService.get().pipe(
       mergeMap((config) => {
         const url =
-          this.appserver +
+          config.serverUrl +
           `/api/v3/ns/applications/${applicationId}/devices/${endDeviceId}`;
 
         const headers = this.defaultHeaders(config);

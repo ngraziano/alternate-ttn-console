@@ -1,5 +1,9 @@
 <h1>Configuration</h1>
 <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+  <mat-form-field class="serverUrl" appearance="fill">
+    <mat-label>API URL</mat-label>
+    <input matInput type="text" formControlName="serverUrl" />
+  </mat-form-field>
   <mat-form-field class="apikey" appearance="fill">
     <mat-label>API Key</mat-label>
     <input
