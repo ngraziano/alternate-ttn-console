@@ -1,4 +1,5 @@
 import { DesiredActual } from './desired-actual';
+import { PacketInformation } from './packet-information';
 
 export interface DeviceNetworkInformation {
   id: string;
@@ -11,15 +12,6 @@ export interface DeviceNetworkInformation {
   downlinkMargin: number;
   uplinkDate: Date;
   uplinkMarging: number;
-  lastPacket?: {
-    date: Date;
-    type: string;
-    frequency: string;
-    frameCounter: number;
-    port: number;
-    channel: number;
-    sp: number;
-    airtime: string;
-  };
+  lastPacket?: PacketInformation;
   raw: any;
 }

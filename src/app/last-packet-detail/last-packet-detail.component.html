@@ -1,0 +1,34 @@
+<ng-container *ngIf="packetInformation">
+  <div>
+    <span>Date</span>
+    <span>{{ packetInformation.date | date: "long" }}</span>
+  </div>
+  <div>
+    <span>Type</span>
+    <span>{{ packetInformation.type }}</span>
+  </div>
+  <div>
+    <span>Frame counter</span>
+    <span>{{ packetInformation.frameCounter }}</span>
+  </div>
+  <div>
+    <span>Port</span>
+    <span>{{ packetInformation.port }}</span>
+  </div>
+  <div>
+    <span>Frequency</span>
+    <span>{{ packetInformation.frequency }}</span>
+  </div>
+  <div>
+    <span>Channel</span>
+    <span>{{ packetInformation.channel }}</span>
+  </div>
+  <div>
+    <span>Spreading Factor</span>
+    <span>{{ packetInformation.sp }}</span>
+  </div>
+  <div>
+    <span>Airtime</span>
+    <span>{{ packetInformation.airtime }}</span>
+  </div>
+</ng-container>

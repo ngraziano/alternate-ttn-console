@@ -5,38 +5,9 @@
         <mat-card-title>Last Uplink Packet</mat-card-title>
       </mat-card-header>
       <mat-card-content class="detail">
-        <div>
-          <span>Date</span>
-          <span>{{ lstPk.date | date: "long" }}</span>
-        </div>
-        <div>
-          <span>Type</span>
-          <span>{{ lstPk.type }}</span>
-        </div>
-        <div>
-          <span>Frame counter</span>
-          <span>{{ lstPk.frameCounter }}</span>
-        </div>
-        <div>
-          <span>Port</span>
-          <span>{{ lstPk.port }}</span>
-        </div>
-        <div>
-          <span>Frequency</span>
-          <span>{{ lstPk.frequency }}</span>
-        </div>
-        <div>
-          <span>Channel</span>
-          <span>{{ lstPk.channel }}</span>
-        </div>
-        <div>
-          <span>Spreading Factor</span>
-          <span>{{ lstPk.sp }}</span>
-        </div>
-        <div>
-          <span>Airtime</span>
-          <span>{{ lstPk.airtime }}</span>
-        </div>
+        <app-last-packet-detail
+          [packetInformation]="lstPk"
+        ></app-last-packet-detail>
       </mat-card-content>
     </mat-card>
     <mat-card>

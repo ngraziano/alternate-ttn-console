@@ -6,6 +6,11 @@ export const convertToNetworkInformation = (obj: EndDevice) => {
     const lastUplink = obj.mac_state.recent_uplinks
       ? obj.mac_state.recent_uplinks[obj.mac_state.recent_uplinks.length - 1]
       : null;
+    const lastDownLink = obj.mac_state.recent_downlinks
+      ? obj.mac_state.recent_downlinks[
+          obj.mac_state.recent_downlinks.length - 1
+        ]
+      : null;
     const uplinkMargings = lastUplink?.rx_metadata.map((x) => x.rssi) ?? [];
 
     return {

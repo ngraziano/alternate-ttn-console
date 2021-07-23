@@ -28,6 +28,7 @@ import { NgxJsonViewerModule } from 'ngx-json-viewer';
 import { ActualVsDesiredComponent } from './actual-vs-desired/actual-vs-desired.component';
 import { PowerSourcePipe } from './device-detail/power-source.pipe';
 import { LiveComponent } from './live/live.component';
+import { LastPacketDetailComponent } from './last-packet-detail/last-packet-detail.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { LiveComponent } from './live/live.component';
     ActualVsDesiredComponent,
     PowerSourcePipe,
     LiveComponent,
+    LastPacketDetailComponent,
   ],
   imports: [
     BrowserModule,
