@@ -1,5 +1,5 @@
 import { DeviceNetworkInformation } from './device-network-information';
-import { EndDevice } from './ttnmodels/end-device';
+import { EndDevice, PowerState } from './ttnmodels/end-device';
 
 export const convertToNetworkInformation = (obj: EndDevice) => {
   {
@@ -34,7 +34,7 @@ export const convertToNetworkInformation = (obj: EndDevice) => {
       statusUpdateTime: obj.last_dev_status_received_at
         ? new Date(obj.last_dev_status_received_at)
         : undefined,
-      powerSource: obj.power_state ?? 0,
+      powerSource: obj.power_state ?? PowerState.unknown,
       batteryPercentage: obj.battery_percentage * 100,
       downlinkMargin: obj.downlink_margin,
       uplinkDate: lastUplink ? new Date(lastUplink.received_at) : undefined,

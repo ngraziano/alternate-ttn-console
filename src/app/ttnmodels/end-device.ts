@@ -1,6 +1,12 @@
 import { MACParameters } from './mac-parameters';
 import { UplinkMessage } from './uplink-message';
 
+export enum PowerState {
+  unknown = 'POWER_UNKNOWN',
+  battery = 'POWER_BATTERY',
+  external = 'POWER_EXTERNAL',
+}
+
 // naming depend of TTN API
 /* eslint-disable @typescript-eslint/naming-convention */
 export interface EndDevice {
@@ -24,7 +30,7 @@ export interface EndDevice {
     last_adr_change_f_cnt_up: number;
   };
   last_dev_status_received_at: string;
-  power_state: number;
+  power_state: PowerState;
   // between 0 and 1
   battery_percentage: number;
   downlink_margin: number;

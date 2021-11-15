@@ -40,7 +40,7 @@
           <span>{{ device.powerSource | powerSource }}</span>
         </div>
         <div
-          *ngIf="device.powerSource === 1"
+          *ngIf="device.powerSource === 'POWER_BATTERY'"
           matTooltip="Update at {{ device.statusUpdateTime | date: 'long' }}"
         >
           <span>Batterie</span>
