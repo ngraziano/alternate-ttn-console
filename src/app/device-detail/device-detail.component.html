@@ -58,13 +58,17 @@
             <span>Uplink</span>
             <span>{{ device.uplinkMarging }}</span>
           </div>
+          <div matTooltip="Update at {{ device.uplinkDate | date: 'long' }}">
+            <span>Uplink SNR</span>
+            <span>{{ device.uplinkSNR }}</span>
+          </div>
         </ng-container>
         <ng-container *ngIf="device.statusUpdateTime">
           <div
             matTooltip="Update at {{ device.statusUpdateTime | date: 'long' }}"
           >
-            <span>Downlink</span>
-            <span>{{ device.downlinkMargin }}</span>
+            <span>Downlink SNR</span>
+            <span>{{ device.downlinkSNR }}</span>
           </div>
         </ng-container>
       </mat-card-content>

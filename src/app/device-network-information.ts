@@ -10,9 +10,10 @@ export interface DeviceNetworkInformation {
   statusUpdateTime: Date;
   powerSource: PowerState;
   batteryPercentage: number;
-  downlinkMargin: number;
+  downlinkSNR: number;
   uplinkDate: Date;
   uplinkMarging: number;
+  uplinkSNR: number;
   lastPacket?: PacketInformation;
   raw: any;
 }

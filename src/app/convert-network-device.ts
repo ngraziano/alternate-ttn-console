@@ -12,6 +12,7 @@ export const convertToNetworkInformation = (obj: EndDevice) => {
         ]
       : null;
     const uplinkMargings = lastUplink?.rx_metadata.map((x) => x.rssi) ?? [];
+    const uplinkSNRs = lastUplink?.rx_metadata.map((x) => x.snr) ?? [];
 
     return {
       id: obj.ids.device_id as string,
@@ -36,9 +37,10 @@ export const convertToNetworkInformation = (obj: EndDevice) => {
         : undefined,
       powerSource: obj.power_state ?? PowerState.unknown,
       batteryPercentage: obj.battery_percentage * 100,
-      downlinkMargin: obj.downlink_margin,
+      downlinkSNR: obj.downlink_margin,
       uplinkDate: lastUplink ? new Date(lastUplink.received_at) : undefined,
       uplinkMarging: Math.max(...uplinkMargings),
+      uplinkSNR: Math.max(...uplinkSNRs),
       lastPacket: lastUplink
         ? {
             date: new Date(lastUplink.received_at),
